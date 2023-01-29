@@ -20,8 +20,10 @@ function engNameLastDigit (input) {
         console.log("eight");
     } else if (a == 9) {
         console.log("nine");
+    } else if (a == 0) {
+        console.log("zero");
     }
 
 }
 
-engNameLastDigit(["1643"])
+engNameLastDigit(["1640"])

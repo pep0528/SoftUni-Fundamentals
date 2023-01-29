@@ -1,12 +1,11 @@
-function reverseString (input) {
-    let word = input[0];
-    let word2 = ""
+function reverseString (str) {
+    let newStr = "";
 
-    for (let i = word.length - 1; i >= 0; i--) {
-        word2 += word[i];
+    for (let i = str.length - 1; i >= 0; i--) {
+        newStr += str[i];
     }
 
-    console.log(word2);
+    console.log(newStr);
 }
 
-reverseString(["Hello"])
+reverseString(`Hello`)

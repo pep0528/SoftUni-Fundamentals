@@ -1,9 +1,18 @@
 function primeNumberChecker (num) {
-    if (num % 2 === 0) {
-        console.log("false");
-    } else {
+    let isPrime = true;
+
+    for (let i = 2; i < num; i++) {
+        if (num % i == 0) {
+            isPrime = false;
+            break;
+        }
+    }
+
+    if (isPrime) {
         console.log("true");
+    } else {
+        console.log("false");
     }
 }
 
-primeNumberChecker(81)
+primeNumberChecker(7)

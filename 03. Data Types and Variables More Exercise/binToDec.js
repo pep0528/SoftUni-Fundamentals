@@ -1,19 +1,16 @@
 function binaryToDecimal (bin) {
-    let binary = '';
+    let sum = 0;
+    let m = 0;
 
-    if (typeof bin == 'string') {
-        binary = bin.split();
-    } else {
-        binary = bin.toString().toSplit();
+    for (let i = 0; i < bin.length; i++) {
+        
+        for (let n = bin.length - 1; n >= 0; n--) {
+            m = 2 ** n;
+            sum = m * Number(bin[i]);
+        }
     }
 
-    let decimal = 0;
-
-    for (let i = 0; i < binary.length; i++) {
-        decimal = (decimal * 2) + binary[i];
-    }
-
-    console.log(decimal);
+    console.log(sum);
 }
 
-binaryToDecimal(00001001)
+binaryToDecimal("00001001")

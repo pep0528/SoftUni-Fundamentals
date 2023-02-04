@@ -15,4 +15,4 @@ function calculator (x, opr, y) {
     }
 }
 
-calculator(25.5, '-', 3)
+calculator(34, '*', 20)

@@ -1,0 +1,30 @@
+function signCheck (num1, num2, num3) {
+    let sign = 'Positive';
+
+    let isNum1Negative = num1 < 0;
+    sign = checkSign(sign, isNum1Negative);
+
+    let isNum2Negative = num2 < 0;
+    sign = checkSign(sign, isNum2Negative);
+
+    let isNum3Negative = num3 < 0;
+    sign = checkSign(sign, isNum3Negative);
+
+    return sign;
+    
+    function checkSign (sign, shouldChange) {
+        if (shouldChange === false) {
+            return sign;
+        }
+
+        if (sign === 'Positive') {
+            sign = 'Negative';
+        } else {
+            sign = 'Positive';
+        }
+
+        return sign;
+    }
+}
+
+console.log(signCheck(5, 12, -15));

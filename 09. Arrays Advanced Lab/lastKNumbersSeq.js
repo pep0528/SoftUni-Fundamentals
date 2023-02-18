@@ -4,7 +4,7 @@ function lastKNumbersSequence (n, k) {
     for (let curr = 1; curr < n; curr++) {
         let start = Math.max(0, curr - k);
         let end = curr - 1;
-        let sum = 0;
+        let sum = sequence.slice(start, end);
 
         sequence[curr] = sum;
     }

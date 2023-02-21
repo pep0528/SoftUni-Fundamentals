@@ -1,54 +1,39 @@
-function muOnline (input) {
+function muOnline (line) {
     let health = 100;
     let bitcoins = 0;
-    let line = input.split('|')
-    let isDead = false;
+    let rooms = line.split('|');
     
-    for (let r = 0; r < line.length; r++) {
-        let room = line[r];
-        let sign = room.split(' ');
-        let command = sign[0];
-        let amount = Number(sign[1]);
+    for (let i = 0; i < rooms.length; i++) {
+        let room = rooms[i];
+        let tokens = room.split(' ');
+        let command = tokens[0];
+        let value = Number(tokens[1]);
         
-        switch (command) {
-            case 'potion':
-                if (health < 100) {
-                    health += amount;
-                }
+        if (command === 'potion') {
+            let missingHealth = 100 - health;
+            let restoredHealth = Math.min(missingHealth, value);
+            health += restoredHealth;
+            console.log(`You healed for ${restoredHealth} hp.`);
+            console.log(`Current health: ${health} hp.`);
+        } else if (command === 'chest') {
+            bitcoins += value;
+            console.log(`You found ${value} bitcoins.`);
+        } else {
+            health -= value;
 
-                if (health > 100) {
-                    health = 100;
-                }
-                console.log(`You healed for ${amount} hp.`);
-                console.log(`Current health: ${health} hp.`);
-                break;
-            case 'chest':
-                bitcoins += amount;
-                console.log(`You found ${amount} bitcoins.`);
-                break;
-            default:
-                health -= amount;
+            if (health <= 0) {
+                console.log(`You died! Killed by ${command}.`);
+                console.log(`Best room: ${i + 1}`);
+                return;
+            }
 
-                if (health > 0) {
-                    console.log(`You slayed ${command}.`);
-                } else {
-                    isDead = true;
-                    console.log(`You died! Killed by ${command}.`);
-                    console.log(`Best room: ${r + 1}`);
-                }
-                break;
-        }
-
-        if (isDead) {
-            break;
+            console.log(`You slayed ${command}`);
         }
     }
 
-    if (!isDead) {
-        console.log("You've made it!");
-        console.log(`Bitcoins: ${bitcoins}`);
-        console.log(`Health: ${health}`);
-    }
+    console.log(`You've made it!`);
+    console.log(`Bitcoins: ${bitcoins}`);
+    console.log(`Health: ${health}`);
 }
 
 muOnline('cat 10|potion 30|orc 10|chest 10|snake 25|chest 110')

@@ -3,10 +3,9 @@ function lastKNumbersSequence (n, k) {
 
     for (let curr = 1; curr < n; curr++) {
         let start = Math.max(0, curr - k);
-        let end = curr - 1;
-        let sum = sequence.slice(start, end);
-
-        sequence[curr] = sum;
+        let current = sequence.slice(start, start + k).reduce((a, b) => a + b, 0);
+        sequence.push(current);
+        
     }
 
     console.log(sequence.join(' '));

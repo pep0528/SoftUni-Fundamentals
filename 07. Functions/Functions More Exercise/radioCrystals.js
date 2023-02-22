@@ -11,7 +11,7 @@ function radioCrystals (arr) {
         let etches = 0;
 
         while (currentThickness !== desiredThickness) {
-            while (currentThickness / 4 >= desiredThickness) {
+            while (cutting(currentThickness) >= desiredThickness) {
                 currentThickness = cutting(currentThickness);
                 cuts++;
             }
@@ -19,10 +19,10 @@ function radioCrystals (arr) {
             if (cuts > 0) {
                 console.log(`Cut x${cuts}`);
                 console.log('Transporting and washing');
-                currentThickness = Math.floor(currentThickness);
+                currentThickness = transport(currentThickness);
             }
 
-            while (currentThickness - currentThickness * 0.2 >= desiredThickness) {
+            while (lapping(currentThickness) >= desiredThickness) {
                 currentThickness = lapping(currentThickness);
                 laps++;
             }
@@ -30,10 +30,10 @@ function radioCrystals (arr) {
             if (laps > 0) {
                 console.log(`Lap x${laps}`);
                 console.log('Transporting and washing');
-                currentThickness = Math.floor(currentThickness);
+                currentThickness = transport(currentThickness);
             }
 
-            while (currentThickness - 20 >= desiredThickness) {
+            while (grinding(currentThickness) >= desiredThickness) {
                 currentThickness = grinding(currentThickness);
                 grinds++;
             }
@@ -41,10 +41,10 @@ function radioCrystals (arr) {
             if (grinds > 0) {
                 console.log(`Grind x${grinds}`);
                 console.log('Transporting and washing');
-                currentThickness = Math.floor(currentThickness);
+                currentThickness = transport(currentThickness);
             }
 
-            while (currentThickness - 2 >= desiredThickness) {
+            while (etching(currentThickness) >= desiredThickness - 1) {
                 currentThickness = etching(currentThickness);
                 etches++;
             }
@@ -52,7 +52,7 @@ function radioCrystals (arr) {
             if (etches > 0) {
                 console.log(`Etch x${etches}`);
                 console.log('Transporting and washing');
-                currentThickness = Math.floor(currentThickness);
+                currentThickness = transport(currentThickness);
             }
 
             if (currentThickness < desiredThickness) {
@@ -60,43 +60,43 @@ function radioCrystals (arr) {
                 console.log(`X-ray x1`);
             }
         }
+        console.log(`Finished crystal ${currentThickness} microns`);
+    }
 
-        console.log(`Finished crystal ${desiredThickness} microns`);
+    //op cut (/4)
+    function cutting (c) {
+        let cut = c / 4;
+        return cut;
+    }
 
-        // op cut (crystal / 4)
+    //op lap (-20%)
+    function lapping (l) {
+        let lap = l - (0.2 * l);
+        return lap;
+    }
 
-        function cutting (c) {
-            let cut = c / 4;
-            return cut;
-        }
+    //op grind (-20)
+    function grinding (g) {
+        let grind = g - 20;
+        return grind;
+    }
 
-        // op lap (crystal - crystal * 0.2)
+    //op etch (-2)
+    function etching (e) {
+        let etch = e - 2;
+        return etch;
+    }
 
-        function lapping (l) {
-            let lap = l * 0.2;
-            return lap;
-        }
+    //op x-ray (+1)
+    function xRay (x) {
+        let xray = x + 1;
+        return xray;
+    }
 
-        // op grind (crystal - 20)
-
-        function grinding (g) {
-            let grind = g - 20;
-            return grind;
-        }
-
-        // op etch (crystal - 2)
-
-        function etching (e) {
-            let etch = e - 2;
-            return etch;
-        }
-
-        // op x-ray (crystal + 1 [do it once])
-
-        function xRay (x) {
-            let xRays = x + 1;
-            return xRays;
-        }
+    //op transport (Math.floor)
+    function transport (t) {
+        let wash = Math.floor(t);
+        return wash;
     }
 }
 

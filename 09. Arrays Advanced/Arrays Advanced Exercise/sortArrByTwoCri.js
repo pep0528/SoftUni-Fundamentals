@@ -1,8 +1,12 @@
-function sortAnArrayByTwoCriteria (arr) {
-    let criteriaSort = (curr, next) => 
-        curr.length - next.length || curr.localCompare(next);
-    arr.sort(criteriaSort);
-    console.log(arr.join('\n'));
+function sortAnArrayByTwoCriteria (input) {
+    input.sort((a, b) => {
+        if (a.length - b.length == 0) {
+            return a.localeCompare(b);
+        }
+        return a.length - b.length
+    });
+
+    console.log(input.join('\n'));
 }
 
 sortAnArrayByTwoCriteria(['alpha', 'beta', 'gamma'])

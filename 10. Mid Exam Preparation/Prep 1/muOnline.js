@@ -27,7 +27,7 @@ function muOnline (line) {
                 return;
             }
 
-            console.log(`You slayed ${command}`);
+            console.log(`You slayed ${command}.`);
         }
     }
 

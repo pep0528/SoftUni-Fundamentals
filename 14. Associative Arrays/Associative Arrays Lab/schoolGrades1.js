@@ -1,40 +1,33 @@
 function schoolGrades (input) {
-    let result = {};
+    let list = input.reduce((acc, curr, index) => {
+        let [name, ...grades] = curr.split(' ');
+        grades = grades.map((g) => Number(g));
+        let currStudent = acc.find((s) => s.name === name);
 
-    for (let char of input) {
-        let tokens = char.split(' ');
-        let student = tokens[0];
-        
-        for (let i = 1; i < tokens.length - 1; i++) {
-            let grades = tokens[i];
+        if (currStudent) {
+            currStudent.grades.push(...grades);
+        } else {
+            currStudent = {
+                name, 
+                grades,
+                average: 0,
+            };
 
-            if (!result.hasOwnProperty(student)) {
-                result[student] = grades;
-            } else {
-                grades.forEach(el => {
-                    result[student].push(el);
-                })
-            }
-        }
-    }
+            acc.push(currStudent);
 
-    let output = Object.entries(result).sort((a, b) => {
-        avg(a[1]) - avg(b[1]);
-    })
-
-    for (let [key, value] of output) {
-        console.log(`${key}: ${value.join(', ')}`);
-    }
-
-    function avg (array) {
-        let sum = 0;
-
-        for (let i = 0; i < array.length; i++) {
-            sum += array[i];
         }
 
-        return sum / array.length;
-    }
+        const totalGrades = currStudent.grades.reduce((acc, curr) => {
+            acc += curr;
+            return acc;
+        }, 0);
+
+        currStudent.average = (totalGrades / currStudent.grades.length).toFixed(2);
+        return acc;
+    }, []);
+
+    list = list.sort((a, b) => a.name.localeCompare(b.name));
+    list.forEach((stu) => console.log(`${stu.name}: ${stu.average}`));
 }
 
 schoolGrades(['Lilly 4 6 6 5',
